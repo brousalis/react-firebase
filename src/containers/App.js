@@ -1,10 +1,8 @@
-var React = require('react');
-var ReactRouter = require('react-router');
-var Router = ReactRouter.Router;
-var Link = ReactRouter.Link;
+import React from 'react';
+import { Link } from 'react-router';
 import * as firebase from 'firebase';
 
-var Main = React.createClass({
+var App = React.createClass({
     getInitialState: function() {
         return {
             loggedIn: (null !== firebase.auth().currentUser)
@@ -77,4 +75,4 @@ var Main = React.createClass({
     }
 });
 
-module.exports = Main;
+module.exports = App;
