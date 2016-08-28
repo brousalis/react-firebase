@@ -1,47 +1,53 @@
-import * as firebase from 'firebase'
+// Fire in the hooooole
+import Firebase from 'firebase'
+import Config from '../../firebase.config.js'
 
-export function requireAuth(nextState, replace) {
-  if(firebase.auth().currentUser === null) {
-    replace({
-      pathname: '/login',
-      state: { nextPathname: nextState.location.pathname }
-    });
-  }
-}
+Firebase.initializeApp(Config)
 
-export function login(email, pass, cb) {
-  cb = arguments[arguments.length - 1]
+export default {
+  requireAuth(nextState, replace) {
+    if(Firebase.auth().currentUser === null) {
+      replace({
+        pathname: '/login',
+        state: { nextPathname: nextState.location.pathname }
+      });
+    }
+  },
 
-  if (localStorage.uid) {
-    if (cb) cb(true)
-    this.onChange(true)
-    return
-  }
+  login(email, pass, cb) {
+    cb = arguments[arguments.length - 1]
 
-  firebase.auth()
-    .signInWithEmailAndPassword(email, pass)
-    .then(function(result) {
-      console.log(result)
-      localStorage.uid = result.user.uid;
+    // if (localStorage.uid) {
+    //   if (cb) cb(true)
+    //   this.onChange(true)
+    //   return
+    // }
+
+    var _this = this;
+
+    Firebase.auth().signInWithEmailAndPassword(email, pass).then(function(result) {
+      // localStorage.uid = result.user.uid;
       if (cb) cb(true)
-      this.onChange(true)
+      _this.onChange(true)
     }).catch(function(error) {
       if (cb) cb(false)
-      this.onChange(false)
+      _this.onChange(false)
     })
-}
+  },
 
-export function getUser() {
-  return firebase.auth().currentUser
-}
+  getUser() {
+    return Firebase.auth().currentUser
+  },
 
-export function logout(cb) {
-  if (cb) cb()
-  this.onChange(false)
-}
+  logout(cb) {
+    Firebase.auth().signOut()
+    if (cb) cb()
+    this.onChange(false)
+  },
 
-export function loggedIn() {
-  return !!(firebase.auth().currentUser === null)
-}
+  loggedIn() {
+    return !!(Firebase.auth().currentUser === null)
+  },
 
-export function onChange() {}
+  onChange() {}
+}

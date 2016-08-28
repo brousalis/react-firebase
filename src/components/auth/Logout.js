@@ -1,23 +1,30 @@
-import React from 'react';
-import * as firebase from 'firebase';
+import React, { Component } from 'react';
 
-var Logout = React.createClass({
-    contextTypes: {
-        router: React.PropTypes.object.isRequired
-    },
-    getInitialState: function(){
-        return {
-            error: false
-        }
-    },
-    componentDidMount: function () {
-        firebase.auth().signOut();
-        this.setState({loggedIn: false});
-        // this.context.router.replace('/');
-    },
-    render: function () {
-        return <p>You are now logged out</p>;
+import auth from '../../utils/auth';
+
+class Logout extends Component {
+  constructor(props) {
+    super(props)
+
+    this.state = {
+      error: false
     }
-});
+  }
 
-module.exports = Logout;
+  componentDidMount() {
+    var _this = this
+    auth.logout(function(result) {
+      _this.setState({ loggedIn: result })
+    })
+  }
+
+  render() {
+    return <p>You are now logged out</p>
+  }
+}
+
+Logout.contextTypes = {
+  router: React.PropTypes.object.isRequired
+}
+
+export default Logout

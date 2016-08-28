@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import * as firebase from 'firebase'
 
 import auth from '../../utils/auth'
 
@@ -8,7 +7,7 @@ class Login extends Component {
     super(props)
 
     this.state = {
-      error: false,
+      error: false
     }
 
     this.handleSubmit = this.handleSubmit.bind(this)
@@ -17,21 +16,19 @@ class Login extends Component {
   handleSubmit(e) {
     e.preventDefault()
     var email = this.refs.email.value
-    var pw = this.refs.pw.value
+    var pass = this.refs.pass.value
     var _this  = this
 
-    firebase.auth().signInWithEmailAndPassword(email, pw).then(function(result) {
+    auth.login(email, pass, function(result) {
+      if (!result)
+        _this.setState({error: result})
+
       var location = _this.props.location
       if (location.state && location.state.nextPathname) {
-          _this.context.router.replace(location.state.nextPathname)
+        _this.context.router.replace(location.state.nextPathname)
       } else {
-          _this.context.router.replace('/dashboard')
+        _this.context.router.replace('/dashboard')
       }
-      // User signed in!
-      console.log('User signed in!')
-      // var uid = result.user.uid
-    }).catch(function(error) {
-      this.setState({error: error})
     })
   }
 
@@ -47,7 +44,7 @@ class Login extends Component {
           </div>
           <div className="form-group">
             <label>Password</label>
-            <input ref="pw" type="password" className="form-control" placeholder="Password" />
+            <input ref="pass" type="password" className="form-control" placeholder="Password" />
           </div>
           {errors}
           <button type="submit" className="btn btn-primary">Login</button>

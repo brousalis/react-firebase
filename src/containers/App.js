@@ -1,15 +1,12 @@
 import React, { Component } from 'react'
 
 import Firebase from 'firebase'
-import Config from '../../firebase.config.js'
 
 import Main from './Main.js'
 
 class App extends Component {
   constructor(props) {
     super(props)
-
-    Firebase.initializeApp(Config)
 
     this.state = {
       loggedIn: false,
@@ -21,6 +18,7 @@ class App extends Component {
     Firebase.auth().onAuthStateChanged(function(user) {
       this.setState({
         loggedIn: (user !== null ? true : false),
+        firebaseRef: (user !== null ? Firebase.database().ref(user.uid) : false),
         connected: true
       })
     }.bind(this))
