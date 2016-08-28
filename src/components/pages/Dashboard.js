@@ -2,13 +2,14 @@ import React, { Component }  from 'react'
 import reactMixin from 'react-mixin'
 import ReactFireMixin from 'reactfire'
 
-import * as firebase from 'firebase'
+import Firebase from 'firebase'
 
 import ItemList from '../ItemList'
 
 class Dashboard extends Component {
   constructor(props) {
     super(props)
+
     this.state = {
       items: [],
       text: ''
@@ -19,7 +20,7 @@ class Dashboard extends Component {
   }
 
   componentWillMount() {
-    this.firebaseRef = firebase.database().ref('items')
+    this.firebaseRef = Firebase.database().ref('items')
     this.firebaseRef.on('value', (snapshot) => {
       var items = []
 
