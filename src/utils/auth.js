@@ -1,10 +1,6 @@
-import * as firebase from 'firebase';
-import * as config from '../../firebase.config.js';
+import * as firebase from 'firebase'
 
-firebase.initializeApp(config);
-
-function requireAuth(nextState, replace) {
-  console.log(firebase.auth().currentUser)
+export function requireAuth(nextState, replace) {
   if(firebase.auth().currentUser === null) {
     replace({
       pathname: '/login',
@@ -13,4 +9,39 @@ function requireAuth(nextState, replace) {
   }
 }
 
-export default requireAuth;
+export function login(email, pass, cb) {
+  cb = arguments[arguments.length - 1]
+
+  if (localStorage.uid) {
+    if (cb) cb(true)
+    this.onChange(true)
+    return
+  }
+
+  firebase.auth()
+    .signInWithEmailAndPassword(email, pass)
+    .then(function(result) {
+      console.log(result)
+      localStorage.uid = result.user.uid;
+      if (cb) cb(true)
+      this.onChange(true)
+    }).catch(function(error) {
+      if (cb) cb(false)
+      this.onChange(false)
+    })
+}
+
+export function getUser() {
+  return firebase.auth().currentUser
+}
+
+export function logout(cb) {
+  if (cb) cb()
+  this.onChange(false)
+}
+
+export function loggedIn() {
+  return !!(firebase.auth().currentUser === null)
+}
+
+export function onChange() {}

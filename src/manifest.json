@@ -1,0 +1,11 @@
+{
+  "name": "weakauras",
+  "description": "WoW weakaura gallery",
+  "display": "minimal-ui",
+  "background_color": "#37302E",
+  "icons": [
+    {
+      "src": "/logo.png"
+    }
+  ]
+}

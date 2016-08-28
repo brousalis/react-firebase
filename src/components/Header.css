@@ -12,4 +12,8 @@ header {
   text-align: right;
   top: 0;
   width: 35%;
+
+  ul {
+    list-style: none;
+  }
 }

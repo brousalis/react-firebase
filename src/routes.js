@@ -10,7 +10,7 @@ import Register from './components/auth/Register'
 import Home from './components/pages/Home'
 import Dashboard from './components/pages/Dashboard'
 
-import requireAuth from './utils/auth'
+import { requireAuth } from './utils/auth'
 
 export default (
   <Router history={browserHistory}>

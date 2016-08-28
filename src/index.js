@@ -1,5 +1,6 @@
-import ReactDOM from 'react-dom';
-import routes from './routes';
-import './index.css';
+import ReactDOM from 'react-dom'
 
-ReactDOM.render(routes , document.getElementById('app'));
+import routes from './routes'
+import './index.css'
+
+ReactDOM.render(routes , document.getElementById('app'))

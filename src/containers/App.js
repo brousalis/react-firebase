@@ -1,36 +1,34 @@
-import React, { Component } from 'react';
-import Header from '../components/Header';
+import React, { Component } from 'react'
 
-import * as firebase from 'firebase';
+import Firebase from 'firebase'
+import Config from '../../firebase.config.js'
 
-import './App.css';
+import Main from './Main.js'
 
 class App extends Component {
   constructor(props) {
-    super(props);
+    super(props)
+
+    Firebase.initializeApp(Config)
+
     this.state = {
-      loggedIn: (firebase.auth().currentUser !== null)
-    };
+      loggedIn: false,
+      connected: false
+    }
   }
 
   componentWillMount() {
-    firebase.auth().onAuthStateChanged(user => {
+    Firebase.auth().onAuthStateChanged(function(user) {
       this.setState({
-        loggedIn: (user !== null)
-      });
-    });
+        loggedIn: (user !== null ? true : false),
+        connected: true
+      })
+    }.bind(this))
   }
 
   render() {
-    return (
-      <div>
-        <Header loggedIn={this.state.loggedIn} />
-        <div id="content" role="main">
-          {this.props.children}
-        </div>
-      </div>
-    )
+    return <Main {...this.props} {...this.state} />
   }
 }
 
-export default App;
+export default App

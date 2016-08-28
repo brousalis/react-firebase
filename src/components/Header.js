@@ -4,39 +4,23 @@ import { Link } from 'react-router';
 import './Header.css';
 
 class Header extends Component {
-    // var loginOrOut;
-    // var register;
-
-    // if (this.state.loggedIn) {
-    //   loginOrOut = <li>
-    //   </li>;
-    //   register = null;
-    // } else {
-    //   loginOrOut = <li>
-    //   </li>;
-    //   register = <li>
-    //         Register
-    //       </Link>
-    //   </li>;
-    // }
-
   render() {
     return <header className="">
       <div className="inner">
-        <h1>weakauras</h1>
-        <ul>
+        <h1 className="c-white">weakauras</h1>
+        <ul className="list-reset">
           <li><Link to="/">home</Link></li>
           <li><Link to="/dashboard">dashboard</Link></li>
         </ul>
         <ul>
           {this.props.loggedIn ? (
             <li>
-              <Link to="/logout">Logout</Link>
+              <Link to="/logout">logout</Link>
             </li>
           ) : (
             <li>
-              <Link to="/register">Register</Link>
-              <Link to="/login" className="ml">Login</Link>
+              <Link to="/register">register</Link>
+              <Link to="/login" className="ml">login</Link>
             </li>
           )}
         </ul>

@@ -62,7 +62,7 @@ class Dashboard extends Component {
 
   render() {
     return <div>
-      <h1>DASHBOARD</h1>
+      <h1>dashboard</h1>
       <ItemList items={ this.state.items } />
       <form onSubmit={ this.handleSubmit }>
         <input onChange={ this.onChange } value={ this.state.text } />
