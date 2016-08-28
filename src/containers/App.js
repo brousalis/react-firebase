@@ -9,6 +9,7 @@ class App extends Component {
     super(props)
 
     this.state = {
+      uid: null,
       loggedIn: false,
       connected: false
     }
@@ -17,6 +18,7 @@ class App extends Component {
   componentWillMount() {
     Firebase.auth().onAuthStateChanged(function(user) {
       this.setState({
+        uid: (user !== null ? user.uid : false),
         loggedIn: (user !== null ? true : false),
         firebaseRef: (user !== null ? Firebase.database().ref(user.uid) : false),
         connected: true

@@ -28,14 +28,7 @@ export default {
   login(email, pass, cb) {
     cb = arguments[arguments.length - 1]
 
-    // if (localStorage.uid) {
-    //   if (cb) cb(true)
-    //   this.onChange(true)
-    //   return
-    // }
-
     Firebase.auth().signInWithEmailAndPassword(email, pass).then((result) => {
-      // localStorage.uid = result.user.uid;
       if (cb) cb(true)
       this.onChange(true)
     }).catch(function(error) {
@@ -44,7 +37,11 @@ export default {
     })
   },
 
-  getUser() {
+  userRef() {
+    return Firebase.database().ref('users/' + this.user().uid)
+  },
+
+  user() {
     return Firebase.auth().currentUser
   },
 
