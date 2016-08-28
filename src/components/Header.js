@@ -5,9 +5,9 @@ import './Header.css';
 
 class Header extends Component {
   render() {
-    return <header className="">
+    return <header className="bg-success">
       <div className="inner">
-        <h1 className="c-white">weakauras</h1>
+        <h1 className="c-white">🐍</h1>
         <ul className="list-reset">
           <li><Link to="/">home</Link></li>
           <li><Link to="/dashboard">dashboard</Link></li>

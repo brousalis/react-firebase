@@ -1,46 +1,55 @@
-import React from 'react';
-import * as firebase from 'firebase';
+import React, { Component } from 'react'
 
-var Register = React.createClass({
-  contextTypes: {
-    router: React.PropTypes.object.isRequired
-  },
-  getInitialState: function(){
-    return {
+import auth from '../../utils/auth'
+
+class Register extends Component {
+  constructor(props) {
+    super(props)
+
+    this.state = {
       error: false
     }
-  },
-  handleSubmit: function(e){
-    e.preventDefault();
-    var email = this.refs.email.value;
-    var pw = this.refs.pw.value;
 
-    // Add signup event
-    // TODO: Fazer validação de formulário
-    firebase.auth().createUserWithEmailAndPassword( email, pw )
-    .then( this.context.router.replace('/') )
-    .catch( this.setState({error: e.message}) );
-  },
-  render: function(){
-    var errors = this.state.error ? <p> {this.state.error} </p> : '';
+    this.handleSubmit = this.handleSubmit.bind(this)
+  }
+
+  handleSubmit(e) {
+    e.preventDefault()
+    var email = this.refs.email.value
+    var pass = this.refs.pass.value
+    var _this = this
+    auth.register(email, pass, function(result) {
+      if (!result) {
+        _this.setState({error: result})
+      }
+      _this.context.router.replace('/')
+    })
+  }
+
+  render() {
+    var errors = this.state.error ? <p> {this.state.error} </p> : ''
     return (
-      <div className="col-sm-6 col-sm-offset-3">
-        <h1> Register </h1>
+      <div>
+        <h1>register</h1>
         <form onSubmit={this.handleSubmit}>
-          <div className="form-group">
-            <label> Email </label>
-            <input className="form-control" ref="email" placeholder="Email"/>
+          <div>
+            <label>email</label>
+            <input ref="email" placeholder="email"/>
           </div>
           <div className="form-group">
             <label>Password</label>
-            <input ref="pw" type="password" className="form-control" placeholder="Password" />
+            <input ref="pass" type="password" placeholder="password" />
           </div>
           {errors}
-          <button type="submit" className="btn btn-primary">Register</button>
+          <button type="submit">register</button>
         </form>
       </div>
     )
   }
-});
+}
 
-module.exports = Register;
+Register.contextTypes = {
+  router: React.PropTypes.object.isRequired
+}
+
+export default Register

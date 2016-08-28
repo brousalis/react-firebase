@@ -1,6 +1,6 @@
-import React, { Component } from 'react';
+import React, { Component } from 'react'
 
-import auth from '../../utils/auth';
+import auth from '../../utils/auth'
 
 class Logout extends Component {
   constructor(props) {
@@ -19,7 +19,7 @@ class Logout extends Component {
   }
 
   render() {
-    return <p>You are now logged out</p>
+    return <p>you are now logged out</p>
   }
 }
 

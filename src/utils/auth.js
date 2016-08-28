@@ -1,4 +1,3 @@
-// Fire in the hooooole
 import Firebase from 'firebase'
 import Config from '../../firebase.config.js'
 
@@ -12,6 +11,20 @@ export default {
         state: { nextPathname: nextState.location.pathname }
       });
     }
+  },
+
+  register(email, pass, cb) {
+    cb = arguments[arguments.length - 1]
+
+    var _this = this;
+
+    Firebase.auth().createUserWithEmailAndPassword(email, pass).then(function(result) {
+      if (cb) cb(true)
+      _this.onChange(true)
+    }).catch(function(error) {
+      if (cb) cb(false)
+      _this.onChange(false)
+    })
   },
 
   login(email, pass, cb) {

@@ -20,8 +20,9 @@ class Login extends Component {
     var _this  = this
 
     auth.login(email, pass, function(result) {
-      if (!result)
+      if (!result) {
         _this.setState({error: result})
+      }
 
       var location = _this.props.location
       if (location.state && location.state.nextPathname) {
@@ -35,19 +36,19 @@ class Login extends Component {
   render() {
     var errors = this.state.error ? <p> {this.state.error} </p> : ''
     return (
-      <div className="col-sm-6 col-sm-offset-3">
-        <h1> Login </h1>
+      <div>
+        <h1>login</h1>
         <form onSubmit={this.handleSubmit}>
-          <div className="form-group">
-            <label> Email </label>
-            <input className="form-control" ref="email" placeholder="Email"/>
+          <div>
+            <label>email</label>
+            <input ref="email" placeholder="Email"/>
           </div>
-          <div className="form-group">
-            <label>Password</label>
-            <input ref="pass" type="password" className="form-control" placeholder="Password" />
+          <div>
+            <label>password</label>
+            <input ref="pass" type="password" placeholder="password" />
           </div>
           {errors}
-          <button type="submit" className="btn btn-primary">Login</button>
+          <button type="submit">login</button>
         </form>
       </div>
     )
