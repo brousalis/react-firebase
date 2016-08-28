@@ -1,18 +1,19 @@
-import React from 'react';
-import { Router, Route, hashHistory, IndexRoute } from 'react-router';
+import React from 'react'
+import { Router, Route, browserHistory, IndexRoute } from 'react-router'
 
-import App from './containers/App';
+import App from './containers/App'
 
-import Login from "./components/auth/Login";
-import Logout from './components/auth/Logout';
-import Register from './components/auth/Register';
-import Dashboard from './components/secure/Dashboard';
-import Home from "./components/Home";
+import Login from './components/auth/Login'
+import Logout from './components/auth/Logout'
+import Register from './components/auth/Register'
 
-import requireAuth from './utils/authenticated';
+import Home from './components/pages/Home'
+import Dashboard from './components/pages/Dashboard'
+
+import requireAuth from './utils/auth'
 
 export default (
-  <Router history={hashHistory}>
+  <Router history={browserHistory}>
     <Route path='/' component={App}>
       <IndexRoute component={Home} />
       <Route path="login" component={Login} />
@@ -21,4 +22,4 @@ export default (
       <Route path="dashboard" component={Dashboard} onEnter={requireAuth} />
     </Route>
   </Router>
-);
+)
