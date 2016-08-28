@@ -17,12 +17,11 @@ class Register extends Component {
     e.preventDefault()
     var email = this.refs.email.value
     var pass = this.refs.pass.value
-    var _this = this
-    auth.register(email, pass, function(result) {
+    auth.register(email, pass, (result) => {
       if (!result) {
-        _this.setState({error: result})
+        this.setState({error: result})
       }
-      _this.context.router.replace('/')
+      this.context.router.replace('/')
     })
   }
 

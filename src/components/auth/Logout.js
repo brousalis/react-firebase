@@ -12,9 +12,8 @@ class Logout extends Component {
   }
 
   componentDidMount() {
-    var _this = this
-    auth.logout(function(result) {
-      _this.setState({ loggedIn: result })
+    auth.logout((result) => {
+      this.setState({ loggedIn: result })
     })
   }
 

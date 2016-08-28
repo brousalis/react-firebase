@@ -17,18 +17,17 @@ class Login extends Component {
     e.preventDefault()
     var email = this.refs.email.value
     var pass = this.refs.pass.value
-    var _this  = this
 
-    auth.login(email, pass, function(result) {
+    auth.login(email, pass, (result) => {
       if (!result) {
-        _this.setState({error: result})
+        this.setState({error: result})
       }
 
-      var location = _this.props.location
+      var location = this.props.location
       if (location.state && location.state.nextPathname) {
-        _this.context.router.replace(location.state.nextPathname)
+        this.context.router.replace(location.state.nextPathname)
       } else {
-        _this.context.router.replace('/dashboard')
+        this.context.router.replace('/dashboard')
       }
     })
   }

@@ -16,14 +16,12 @@ export default {
   register(email, pass, cb) {
     cb = arguments[arguments.length - 1]
 
-    var _this = this;
-
-    Firebase.auth().createUserWithEmailAndPassword(email, pass).then(function(result) {
+    Firebase.auth().createUserWithEmailAndPassword(email, pass).then((result) => {
       if (cb) cb(true)
-      _this.onChange(true)
+      this.onChange(true)
     }).catch(function(error) {
       if (cb) cb(false)
-      _this.onChange(false)
+      this.onChange(false)
     })
   },
 
@@ -36,15 +34,13 @@ export default {
     //   return
     // }
 
-    var _this = this;
-
-    Firebase.auth().signInWithEmailAndPassword(email, pass).then(function(result) {
+    Firebase.auth().signInWithEmailAndPassword(email, pass).then((result) => {
       // localStorage.uid = result.user.uid;
       if (cb) cb(true)
-      _this.onChange(true)
+      this.onChange(true)
     }).catch(function(error) {
       if (cb) cb(false)
-      _this.onChange(false)
+      this.onChange(false)
     })
   },
 
